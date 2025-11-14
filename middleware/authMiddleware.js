@@ -1,4 +1,4 @@
-const { getUIDByToken } = require("../utils/FirebaseAuth");
+const { getUIDByToken } = require("../firebase/FirebaseAuth");
 
 const authMiddleware = async (req, res, next) => {
     try {

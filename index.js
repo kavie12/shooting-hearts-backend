@@ -1,10 +1,11 @@
 const express = require("express");
-const { initFirebase } = require("./utils/FirebaseAdmin.js");
-const SERVER_PORT = 3000;
+require("dotenv").config();
+const { initFirebase } = require("./firebase/FirebaseAdmin.js");
 
 initFirebase();
 
 const app = express();
+const port = process.env.SERVER_PORT;
 app.use(express.json());
 
 const authMiddleware = require("./middleware/authMiddleware.js");
@@ -15,6 +16,6 @@ app.use("/api/auth", authRoutes);
 const playerRoutes = require("./routes/playerRoutes.js");
 app.use("/api/player", authMiddleware, playerRoutes);
 
-app.listen(SERVER_PORT, () => {
-    console.log(`Server running on port ${SERVER_PORT}`);
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });

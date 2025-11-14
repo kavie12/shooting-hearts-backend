@@ -1,4 +1,4 @@
-const { updateHighScoreByUID, getLeaderboardRecords, getHighScoreByUID } = require("../utils/FirebaseDatabase");
+const { updateHighScoreByUID, getLeaderboardRecords, getHighScoreByUID } = require("../firebase/FirebaseDatabase");
 
 const updateHighScore = async (req, res) => {
     try {

@@ -1,7 +1,6 @@
 const { getAuth } = require("./FirebaseAdmin");
 const { initPlayerRecord } = require("./FirebaseDatabase");
 
-require("dotenv").config();
 const apiKey = process.env.FIREBASE_API_KEY;
 
 async function createUser(name, email, password) {

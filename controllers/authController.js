@@ -1,4 +1,4 @@
-const { createUser, authenticate, refreshTokens, getUIDByToken } = require("../utils/FirebaseAuth");
+const { createUser, authenticate, refreshTokens, getUIDByToken } = require("../firebase/FirebaseAuth");
 
 const signup = async (req, res) => {
     try {
