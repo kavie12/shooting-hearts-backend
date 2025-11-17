@@ -87,7 +87,7 @@ async function authenticate(email, password) {
 async function refreshTokens(refreshToken) {
     try {
         // API Doc: https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
-        const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`, {
+        const res = await fetch(`https://securetoken.googleapis.com/v1/token?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

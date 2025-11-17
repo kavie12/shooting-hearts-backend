@@ -13,7 +13,10 @@ async function initPlayerRecord(uid, name) {
 async function getHighScoreByUID(uid) {
     try {
         const docSnapshot = await collectionRef.doc(uid).get();
-        return docSnapshot.get("highScore");
+        return {
+            playerName: docSnapshot.get("name"),
+            highScore: docSnapshot.get("highScore")
+        };
     } catch (error) {
         throw new Error("Failed to retrieve high score.");
     }
