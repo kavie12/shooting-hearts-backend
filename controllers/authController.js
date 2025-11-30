@@ -1,4 +1,4 @@
-const { createUser, authenticate, refreshTokens, getUIDByToken } = require("../firebase/FirebaseAuth");
+const { createUser, authenticate, refreshTokens, getUIDByToken, resetPasswordEmail } = require("../firebase/FirebaseAuth");
 
 const signup = async (req, res) => {
     try {
@@ -57,4 +57,16 @@ const refresh = async (req, res) => {
     }
 };
 
-module.exports = { signup, login, verify, refresh };
+const sendResetPasswordEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const result = await resetPasswordEmail(email);
+        res.status(200).json({ message: "Password reset email sent." });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(400).json(error);
+    }
+};
+
+module.exports = { signup, login, verify, refresh, sendResetPasswordEmail };

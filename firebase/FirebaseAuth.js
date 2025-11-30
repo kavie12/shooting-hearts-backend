@@ -110,6 +110,29 @@ async function refreshTokens(refreshToken) {
     }
 }
 
+async function resetPasswordEmail(email) {
+    try {
+        // https://firebase.google.com/docs/reference/rest/auth#section-send-password-reset-email
+        const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                requestType: "PASSWORD_RESET",
+                email: email,
+            })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw data.error;
+        }
+
+        return "Success";
+    } catch (error) {
+        throw errorConverter(error);
+    }
+}
+
 async function getUIDByToken(token) {
     try {
         const decodedToken = await getAuth().verifyIdToken(token);
@@ -159,6 +182,16 @@ function errorConverter(error) {
                 code: error.message,
                 message: "The password you entered is incorrect."
             };
+        case "EXPIRED_OOB_CODE":
+            return {
+                code: error.message,
+                message: "Code is expired."
+            };
+        case "INVALID_OOB_CODE":
+            return {
+                code: error.message,
+                message: "Code is invalid."
+            };
         default:
             return {
                 code: "UNKNOWN_ERROR",
@@ -171,5 +204,6 @@ module.exports = {
     createUser,
     authenticate,
     refreshTokens,
-    getUIDByToken
+    getUIDByToken,
+    resetPasswordEmail
 };
