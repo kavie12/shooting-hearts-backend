@@ -1,5 +1,6 @@
 const { createUser, authenticate, refreshTokens, getUIDByToken, resetPasswordEmail } = require("../firebase/FirebaseAuth");
 
+// Handle signup
 const signup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -13,6 +14,7 @@ const signup = async (req, res) => {
     }
 };
 
+// Handle login
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -26,6 +28,7 @@ const login = async (req, res) => {
     }
 };
 
+// Hanlde access token verification
 const verify = async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
@@ -41,6 +44,7 @@ const verify = async (req, res) => {
     }
 };
 
+// Get new token pairs from refresh token
 const refresh = async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
@@ -57,6 +61,7 @@ const refresh = async (req, res) => {
     }
 };
 
+// Send reset password email
 const sendResetPasswordEmail = async (req, res) => {
     try {
         const { email } = req.body;

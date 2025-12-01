@@ -1,7 +1,9 @@
 const { getFirestore } = require("./FirebaseAdmin");
 
+// Player collection reference
 const collectionRef = getFirestore().collection("players");
 
+// Initialize leaderboard record for a player. (score: 0)
 async function initPlayerRecord(uid, name) {
     try {
         await collectionRef.doc(uid).set({ name: name, highScore: 0 });
@@ -10,6 +12,7 @@ async function initPlayerRecord(uid, name) {
     }
 }
 
+// Get player high score by UID
 async function getHighScoreByUID(uid) {
     try {
         const docSnapshot = await collectionRef.doc(uid).get();
@@ -22,6 +25,7 @@ async function getHighScoreByUID(uid) {
     }
 }
 
+// Update player high score
 async function updateHighScoreByUID(uid, highScore) {
     try {
         await collectionRef.doc(uid).update({ highScore: highScore });
@@ -30,6 +34,7 @@ async function updateHighScoreByUID(uid, highScore) {
     }
 }
 
+// Retrieve leaderboard records
 async function getLeaderboardRecords() {
     try {
         const snapshot = await collectionRef.orderBy("highScore", "desc").get();

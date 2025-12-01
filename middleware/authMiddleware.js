@@ -1,5 +1,6 @@
 const { getUIDByToken } = require("../firebase/FirebaseAuth");
 
+// Authenticate user and add UID to the request
 const authMiddleware = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;

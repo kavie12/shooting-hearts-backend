@@ -1,5 +1,6 @@
 const { updateHighScoreByUID, getLeaderboardRecords, getHighScoreByUID } = require("../firebase/FirebaseDatabase");
 
+// Handle player high score request
 const getHighScore = async (req, res) => {
     try {
         const uid = req.uid;
@@ -10,6 +11,7 @@ const getHighScore = async (req, res) => {
     }
 };
 
+// Update highscore comparing the new score and the current high score
 const updateHighScore = async (req, res) => {
     try {
         const { newScore } = req.body;
@@ -29,6 +31,7 @@ const updateHighScore = async (req, res) => {
     }
 };
 
+// Handle leaderboard request
 const getLeaderboard = async (req, res) => {
     try {        
         const records = await getLeaderboardRecords();

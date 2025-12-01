@@ -3,9 +3,10 @@ const { initPlayerRecord } = require("./FirebaseDatabase");
 
 const apiKey = process.env.FIREBASE_API_KEY;
 
+// Create new user
+// API Doc: https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 async function createUser(name, email, password) {
     try {
-        // API Doc: https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
         const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -34,9 +35,10 @@ async function createUser(name, email, password) {
     }
 }
 
+// Update user's display name
+// API Doc: https://firebase.google.com/docs/reference/rest/auth#section-update-profile
 async function updateDisplayName(token, name) {
     try {
-        // API Doc: https://firebase.google.com/docs/reference/rest/auth#section-update-profile
         const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -57,9 +59,10 @@ async function updateDisplayName(token, name) {
     }
 }
 
+// Login user
+// API Doc: https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
 async function authenticate(email, password) {
     try {
-        // API Doc: https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
         const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,9 +87,10 @@ async function authenticate(email, password) {
     }
 }
 
+// Get new token pair with refresh token
+// API Doc: https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
 async function refreshTokens(refreshToken) {
     try {
-        // API Doc: https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
         const res = await fetch(`https://securetoken.googleapis.com/v1/token?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -110,9 +114,10 @@ async function refreshTokens(refreshToken) {
     }
 }
 
+// Send reset password email
+// https://firebase.google.com/docs/reference/rest/auth#section-send-password-reset-email
 async function resetPasswordEmail(email) {
     try {
-        // https://firebase.google.com/docs/reference/rest/auth#section-send-password-reset-email
         const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -133,6 +138,7 @@ async function resetPasswordEmail(email) {
     }
 }
 
+// Verify access token and get UID
 async function getUIDByToken(token) {
     try {
         const decodedToken = await getAuth().verifyIdToken(token);
@@ -143,6 +149,7 @@ async function getUIDByToken(token) {
     }
 }
 
+// Convert Firebase Auth Error Ids into readable errors
 function errorConverter(error) {
     switch (error.message) {
         case "TOKEN_EXPIRED":
